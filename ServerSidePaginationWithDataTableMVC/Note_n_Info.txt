@@ -1,0 +1,59 @@
+﻿==> Fire StoreProcedure and update model
+********************************************************************************
+--Notes: If Result set is not generate automatically then follow below steps: (Dynamic Query resultset)
+********************************************************************************
+	1. Print your Query (print(@SQLQuery))
+	2. Copy query From Message tab in sql server.
+	3. Comment portion from Begin to End and paste query which we generate from @SQLQuery variable.
+	4. Fire Query and Update model from database and generate Complex type from Function/Import (Model Browser). 
+	5. Again comment print line and remove comment from Begin to End ans save.
+*********************************************************************************
+
+Alter PROCEDURE [dbo].[GetOrderDetails] -- GetOrderDetails 1,'',100,'OrderId','desc'  
+ @Pageno INT,  
+ @filter VARCHAR(500),  
+ @pagesize INT,  
+ @Sorting VARCHAR(500),  
+ @SortOrder VARCHAR(500)   
+AS  
+BEGIN  
+--IF (1=2)
+--    SET FMTONLY OFF
+-- SET NOCOUNT ON;  
+-- DECLARE @SqlCount INT  
+-- DECLARE @From INT = @pageno  
+-- DECLARE @SQLQuery VARCHAR(5000)  
+-- IF(@filter !='')  
+-- BEGIN  
+--  SET @SqlCount= ( SELECT COUNT(*) FROM [Order] CM WHERE CM.IsDeleted=0 AND (CM.OrderId LIKE '%'+@filter+'%' OR CM.OrderNumber LIKE '%'+ @filter+'%' OR CM.OrderTotal LIKE '%'+@filter+'%'))  
+--  SET @SQLQuery ='select *,'+CONVERT(VARCHAR,@SqlCount)+' as TotalPages from [Order]
+--   where (CM.OrderId like ''%'+CONVERT(VARCHAR,@filter)+'%''   
+--   or CM.OrderNumber like ''%'+CONVERT(VARCHAR,@filter)+'%''   
+--   or CM.OrderTotal like ''%'+CONVERT(VARCHAR,@filter)+'%'')  
+--   order by CM.'+ CONVERT(VARCHAR,@Sorting) +' '+ @SortOrder +'  
+--  OFFSET '+CONVERT(VARCHAR,@From)+' ROWS  
+--  FETCH NEXT '+CONVERT(VARCHAR,@pagesize)+' ROWS ONLY OPTION (RECOMPILE)'  
+--   END  
+--   ELSE  
+--   BEGIN  
+--  SET @SqlCount=( SELECT COUNT(*) FROM [Order] CM)  
+--  SET @SQLQuery ='select *,'+CONVERT(VARCHAR,@SqlCount)+' as TotalPages from [Order] CM 
+--  order by CM.'+ CONVERT(VARCHAR,@Sorting) +' '+ @SortOrder +'  
+--  OFFSET '+CONVERT(VARCHAR,@From)+' ROWS  
+--  FETCH NEXT '+CONVERT(VARCHAR,@pagesize)+' ROWS ONLY OPTION (RECOMPILE)'  
+-- end  
+ 
+-- exec (@SQLQuery)  
+-- print(@SQLQuery)
+
+ --select * from [Order] CM 
+ -- order by CM.OrderId desc  
+ -- OFFSET 1 ROWS  
+ -- FETCH NEXT 100 ROWS ONLY OPTION (RECOMPILE)
+  
+  select *,5799 as TotalPages from [Order] CM 
+  order by CM.OrderId desc  
+  OFFSET 1 ROWS  
+  FETCH NEXT 100 ROWS ONLY OPTION (RECOMPILE)
+
+END

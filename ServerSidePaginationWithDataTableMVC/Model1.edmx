@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CommerceBitCustomerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderNumber" Type="bigint" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CustomerInstructions" Type="nvarchar(max)" />
+          <Property Name="InternalNotes" Type="nvarchar(max)" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="IsQuote" Type="bit" Nullable="false" />
+          <Property Name="RowVersion" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByUserId" Type="int" />
+          <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedByUserId" Type="int" />
+          <Property Name="OrderTotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ShippingTotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DiscountTotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TAX" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="GrandTotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TaxRateId" Type="int" />
+          <Property Name="PaymentStatus" Type="int" Nullable="false" />
+          <Property Name="ShipStatus" Type="int" Nullable="false" />
+          <Property Name="OrderStatus" Type="int" Nullable="false" />
+          <Property Name="OrderType" Type="nvarchar(max)" />
+          <Property Name="ParentOrderId" Type="int" />
+          <Property Name="Channel" Type="nvarchar(max)" />
+          <Property Name="ChannelOrderid" Type="nvarchar(max)" />
+          <Property Name="InsuranceTotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="QBExported" Type="bit" Nullable="false" />
+          <Property Name="IsTaxCollected" Type="bit" Nullable="false" />
+          <Property Name="TaxCounty" Type="nvarchar(max)" />
+          <Property Name="MarketPlaceProfileID" Type="int" Nullable="false" />
+          <Property Name="ApplyPayments_ApplyPaymentId" Type="int" />
+          <Property Name="MarketPlace_ItemID" Type="nvarchar(max)" />
+          <Property Name="CarrierXMLRequestInput" Type="nvarchar(max)" />
+          <Property Name="CarrierXMLResponseOutput" Type="nvarchar(max)" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="PackageStatus" Type="nvarchar(max)" />
+          <Property Name="LablePrintingDate" Type="datetime" />
+          <Property Name="LastChecked" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_dbo_Order_dbo_Order_ParentOrderId">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="Order1" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="Order1">
+              <PropertyRef Name="ParentOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetOrderDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Pageno" Type="int" Mode="In" />
+          <Parameter Name="filter" Type="varchar" Mode="In" />
+          <Parameter Name="pagesize" Type="int" Mode="In" />
+          <Parameter Name="Sorting" Type="varchar" Mode="In" />
+          <Parameter Name="SortOrder" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="CommerceBitCustomerModelStoreContainer">
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Order_dbo_Order_ParentOrderId" Association="Self.FK_dbo_Order_dbo_Order_ParentOrderId">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Order1" EntitySet="Order" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CommerceBitCustomerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderNumber" Type="Int64" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerInstructions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InternalNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsQuote" Type="Boolean" Nullable="false" />
+          <Property Name="RowVersion" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedByUserId" Type="Int32" />
+          <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedByUserId" Type="Int32" />
+          <Property Name="OrderTotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ShippingTotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DiscountTotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TAX" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="GrandTotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TaxRateId" Type="Int32" />
+          <Property Name="PaymentStatus" Type="Int32" Nullable="false" />
+          <Property Name="ShipStatus" Type="Int32" Nullable="false" />
+          <Property Name="OrderStatus" Type="Int32" Nullable="false" />
+          <Property Name="OrderType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ParentOrderId" Type="Int32" />
+          <Property Name="Channel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChannelOrderid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InsuranceTotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="QBExported" Type="Boolean" Nullable="false" />
+          <Property Name="IsTaxCollected" Type="Boolean" Nullable="false" />
+          <Property Name="TaxCounty" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MarketPlaceProfileID" Type="Int32" Nullable="false" />
+          <Property Name="ApplyPayments_ApplyPaymentId" Type="Int32" />
+          <Property Name="MarketPlace_ItemID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CarrierXMLRequestInput" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CarrierXMLResponseOutput" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="PackageStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LablePrintingDate" Type="DateTime" Precision="3" />
+          <Property Name="LastChecked" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Order1" Relationship="Self.FK_dbo_Order_dbo_Order_ParentOrderId" FromRole="Order" ToRole="Order1" />
+          <NavigationProperty Name="Order2" Relationship="Self.FK_dbo_Order_dbo_Order_ParentOrderId" FromRole="Order1" ToRole="Order" />
+        </EntityType>
+        <Association Name="FK_dbo_Order_dbo_Order_ParentOrderId">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="Order1" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="Order1">
+              <PropertyRef Name="ParentOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CommerceBitCustomerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <AssociationSet Name="FK_dbo_Order_dbo_Order_ParentOrderId" Association="Self.FK_dbo_Order_dbo_Order_ParentOrderId">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Order1" EntitySet="Orders" />
+          </AssociationSet>
+          <FunctionImport Name="GetOrderDetails" ReturnType="Collection(CommerceBitCustomerModel.GetOrderDetails_Result)">
+            <Parameter Name="Pageno" Mode="In" Type="Int32" />
+            <Parameter Name="filter" Mode="In" Type="String" />
+            <Parameter Name="pagesize" Mode="In" Type="Int32" />
+            <Parameter Name="Sorting" Mode="In" Type="String" />
+            <Parameter Name="SortOrder" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetOrderDetails_Result">
+          <Property Type="Int32" Name="OrderId" Nullable="false" />
+          <Property Type="Int64" Name="OrderNumber" Nullable="false" />
+          <Property Type="Int32" Name="CustomerId" Nullable="false" />
+          <Property Type="String" Name="CustomerInstructions" Nullable="true" />
+          <Property Type="String" Name="InternalNotes" Nullable="true" />
+          <Property Type="DateTime" Name="OrderDate" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="IsQuote" Nullable="false" />
+          <Property Type="Binary" Name="RowVersion" Nullable="false" MaxLength="8" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="CreatedByUserId" Nullable="true" />
+          <Property Type="DateTime" Name="DateUpdated" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="UpdatedByUserId" Nullable="true" />
+          <Property Type="Decimal" Name="OrderTotal" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ShippingTotal" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="DiscountTotal" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="TAX" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="GrandTotal" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="TaxRateId" Nullable="true" />
+          <Property Type="Int32" Name="PaymentStatus" Nullable="false" />
+          <Property Type="Int32" Name="ShipStatus" Nullable="false" />
+          <Property Type="Int32" Name="OrderStatus" Nullable="false" />
+          <Property Type="String" Name="OrderType" Nullable="true" />
+          <Property Type="Int32" Name="ParentOrderId" Nullable="true" />
+          <Property Type="String" Name="Channel" Nullable="true" />
+          <Property Type="String" Name="ChannelOrderid" Nullable="true" />
+          <Property Type="Decimal" Name="InsuranceTotal" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Boolean" Name="QBExported" Nullable="false" />
+          <Property Type="Boolean" Name="IsTaxCollected" Nullable="false" />
+          <Property Type="String" Name="TaxCounty" Nullable="true" />
+          <Property Type="Int32" Name="MarketPlaceProfileID" Nullable="false" />
+          <Property Type="Int32" Name="ApplyPayments_ApplyPaymentId" Nullable="true" />
+          <Property Type="String" Name="MarketPlace_ItemID" Nullable="true" />
+          <Property Type="String" Name="CarrierXMLRequestInput" Nullable="true" />
+          <Property Type="String" Name="CarrierXMLResponseOutput" Nullable="true" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
+          <Property Type="String" Name="PackageStatus" Nullable="true" />
+          <Property Type="DateTime" Name="LablePrintingDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="LastChecked" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="TotalPages" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CommerceBitCustomerModelStoreContainer" CdmEntityContainer="CommerceBitCustomerEntities">
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="CommerceBitCustomerModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerInstructions" ColumnName="CustomerInstructions" />
+                <ScalarProperty Name="InternalNotes" ColumnName="InternalNotes" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="IsQuote" ColumnName="IsQuote" />
+                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="UpdatedByUserId" ColumnName="UpdatedByUserId" />
+                <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
+                <ScalarProperty Name="ShippingTotal" ColumnName="ShippingTotal" />
+                <ScalarProperty Name="DiscountTotal" ColumnName="DiscountTotal" />
+                <ScalarProperty Name="TAX" ColumnName="TAX" />
+                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+                <ScalarProperty Name="TaxRateId" ColumnName="TaxRateId" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="ShipStatus" ColumnName="ShipStatus" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="OrderType" ColumnName="OrderType" />
+                <ScalarProperty Name="ParentOrderId" ColumnName="ParentOrderId" />
+                <ScalarProperty Name="Channel" ColumnName="Channel" />
+                <ScalarProperty Name="ChannelOrderid" ColumnName="ChannelOrderid" />
+                <ScalarProperty Name="InsuranceTotal" ColumnName="InsuranceTotal" />
+                <ScalarProperty Name="QBExported" ColumnName="QBExported" />
+                <ScalarProperty Name="IsTaxCollected" ColumnName="IsTaxCollected" />
+                <ScalarProperty Name="TaxCounty" ColumnName="TaxCounty" />
+                <ScalarProperty Name="MarketPlaceProfileID" ColumnName="MarketPlaceProfileID" />
+                <ScalarProperty Name="ApplyPayments_ApplyPaymentId" ColumnName="ApplyPayments_ApplyPaymentId" />
+                <ScalarProperty Name="MarketPlace_ItemID" ColumnName="MarketPlace_ItemID" />
+                <ScalarProperty Name="CarrierXMLRequestInput" ColumnName="CarrierXMLRequestInput" />
+                <ScalarProperty Name="CarrierXMLResponseOutput" ColumnName="CarrierXMLResponseOutput" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="PackageStatus" ColumnName="PackageStatus" />
+                <ScalarProperty Name="LablePrintingDate" ColumnName="LablePrintingDate" />
+                <ScalarProperty Name="LastChecked" ColumnName="LastChecked" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetOrderDetails" FunctionName="CommerceBitCustomerModel.Store.GetOrderDetails" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommerceBitCustomerModel.GetOrderDetails_Result">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerInstructions" ColumnName="CustomerInstructions" />
+                <ScalarProperty Name="InternalNotes" ColumnName="InternalNotes" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="IsQuote" ColumnName="IsQuote" />
+                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="UpdatedByUserId" ColumnName="UpdatedByUserId" />
+                <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
+                <ScalarProperty Name="ShippingTotal" ColumnName="ShippingTotal" />
+                <ScalarProperty Name="DiscountTotal" ColumnName="DiscountTotal" />
+                <ScalarProperty Name="TAX" ColumnName="TAX" />
+                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+                <ScalarProperty Name="TaxRateId" ColumnName="TaxRateId" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="ShipStatus" ColumnName="ShipStatus" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="OrderType" ColumnName="OrderType" />
+                <ScalarProperty Name="ParentOrderId" ColumnName="ParentOrderId" />
+                <ScalarProperty Name="Channel" ColumnName="Channel" />
+                <ScalarProperty Name="ChannelOrderid" ColumnName="ChannelOrderid" />
+                <ScalarProperty Name="InsuranceTotal" ColumnName="InsuranceTotal" />
+                <ScalarProperty Name="QBExported" ColumnName="QBExported" />
+                <ScalarProperty Name="IsTaxCollected" ColumnName="IsTaxCollected" />
+                <ScalarProperty Name="TaxCounty" ColumnName="TaxCounty" />
+                <ScalarProperty Name="MarketPlaceProfileID" ColumnName="MarketPlaceProfileID" />
+                <ScalarProperty Name="ApplyPayments_ApplyPaymentId" ColumnName="ApplyPayments_ApplyPaymentId" />
+                <ScalarProperty Name="MarketPlace_ItemID" ColumnName="MarketPlace_ItemID" />
+                <ScalarProperty Name="CarrierXMLRequestInput" ColumnName="CarrierXMLRequestInput" />
+                <ScalarProperty Name="CarrierXMLResponseOutput" ColumnName="CarrierXMLResponseOutput" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="PackageStatus" ColumnName="PackageStatus" />
+                <ScalarProperty Name="LablePrintingDate" ColumnName="LablePrintingDate" />
+                <ScalarProperty Name="LastChecked" ColumnName="LastChecked" />
+                <ScalarProperty Name="TotalPages" ColumnName="TotalPages" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
