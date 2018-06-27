@@ -1,0 +1,156 @@
+﻿@model IEnumerable<ServerSidePaginationWithDataTableMVC.Order>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<h2>Index</h2>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!--add this link for the datatable-->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js" integrity="sha256-4F7e4JsAJyLUdpP7Q8Sah866jCOhv72zU5E8lIRER4w=" crossorigin="anonymous"></script>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerInstructions)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InternalNotes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>Action</th>
+
+        </tr>
+    </thead>
+</table>
+<script type="text/javascript">
+
+
+    //$(document).ready(function ()   {
+    //    windowResize();
+    //});
+
+    //function windowResize() {
+    //    display();
+    //};
+    //$(window).resize(function () {
+    //    windowResize();
+    //});
+
+
+
+        $(document).ready(function () {
+        $("#myTable").DataTable({
+        "processing": true, // for show progress bar
+        "serverSide": true, // for process server side
+        "filter": true, // this is for disable filter (search box)
+        "orderMulti": false, // for disable multiple column at once
+        "ajax": {
+            "url": '@Url.Action("GetOrdersWithDT1", "Orders")',
+            "type": "POST",
+            "datatype": "json"
+        },
+        "columns": [
+              { "data": "OrderId", "name": "OrderId", "autoWidth": true }
+            , { "data": "OrderNumber", "name": "OrderNumber", "autoWidth": true }
+            , { "data": "OrderNumber", "name": "OrderNumber", "autoWidth": true }
+            , { "data": "CustomerInstructions", "name": "CustomerInstructions", "autoWidth": true }
+            , { "data": "OrderDate", "name": "OrderDate", "autoWidth": true },
+            {
+                data: '', name: '', "autoWidth": true, "orderable": false, mRender: function (data, colo, row) {
+                    return "<i class='fa fa-trash' style='cursor:pointer'></i>";
+                }
+            }
+        ]
+    });
+});
+
+        @*Table = $('#myTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "paging": true,
+            "ordering": true,
+            "info": true,
+            "searching": true,
+            "bFilter": true,
+            "scrollX": "100%",
+            "scrollY": ($(window).height() - 280),
+            "sScrollXInner": "100%",
+            "bScrollCollapse": true,
+            "sAjaxSource": '@Url.Action("GetOrdersWithDT", "Orders")',
+            "bDestroy": true,
+            "bLengthChange": true,
+            "iDisplayLength": 25,
+            "bPaginate": true,
+            "sEmptyTable": "No Data Exists",
+            "columns": [
+                {
+                    "sWidth": "5%",
+                    "sClass": "TextCenter PID",
+                    "render": function (data, type, row) {
+                        return row[0];
+                    }
+                },
+                { "sWidth": "5%", "sClass": "TextCenter Name", "render": function (data, type, row) { return (row[1]); } },
+                { "sWidth": "5%", "sClass": "TextCenter Desc", "render": function (data, type, row) { return (row[2]); } },
+                { "sWidth": "5%", "sClass": "TextCenter Price", "render": function (data, type, row) { return (row[3]); } },
+                { "sWidth": "5%", "sClass": "TextCenter Price", "render": function (data, type, row) { return (row[4]); } },
+
+                {
+                    "bSortable": false,
+                    "sClass": "TextCenter",
+                    "sWidth": "3%",
+                    "render": function (data, type, row) {
+                        return '<center><a href="javascript:void(0);"  onclick=deleteData("' + row[0] + '"); return false;> <i class="glyphicon glyphicon-trash"></i></a>  <a href="javascript:void(0);"  onclick=EditData(this); return false;> <i class="glyphicon glyphicon-edit"></i></a></center>';
+                    }, "targets": 0,
+                }
+
+            ],
+        });*@
+
+        @*$("#myTable").DataTable({
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": false, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url": '@Url.Action("GetOrdersWithDT1", "Orders")',
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "ContactName", "name": "ContactName", "autoWidth": true },
+                { "data": "OrderId", "name": "OrderId", "autoWidth": true }
+                , { "data": "OrderNumber", "name": "OrderNumber", "autoWidth": true }
+                , { "data": "CustomerId", "name": "CustomerId", "autoWidth": true }
+                , { "data": "CustomerInstructions", "name": "CustomerInstructions", "autoWidth": true }
+                , { "data": "OrderDate", "name": "OrderDate", "autoWidth": true }
+            ]
+        });*@
+
+</script>  
